@@ -4,33 +4,59 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // input e output de dados no console
         Console.WriteLine("------ Aula 04 ------");
         Console.WriteLine("------ Cadastro de cliente ------");
-
-        Console.WriteLine("entrada de dados no console");
+        Console.WriteLine("Entrada de dados no console");
 
         Console.Write("Digite seu nome: ");
-        string name = Console.ReadLine() ?? "<nome não informado>";
+        string? nameInput = Console.ReadLine();
+
+        string name = string.IsNullOrWhiteSpace(nameInput)
+            ? "<nome não informado>"
+            : nameInput.Trim();
 
         Console.Write("Digite sua idade: ");
-        int age = Convert.ToInt32(Console.ReadLine() ?? "0");
+
+        int age;
+
+        while (!int.TryParse(Console.ReadLine(), out age))
+        {
+            Console.WriteLine("Idade inválida. Digite um número inteiro.");
+            Console.Write("Digite sua idade novamente: ");
+        }
 
         Console.Write("Digite sua altura: ");
-        double height = Convert.ToDouble(Console.ReadLine() ?? "0");
+
+        double height;
+
+        while (!double.TryParse(Console.ReadLine(), out height))
+        {
+            Console.WriteLine("Altura inválida. Digite um número válido.");
+            Console.Write("Digite sua altura novamente: ");
+        }
 
         Console.Write("Digite seu sexo (M/F): ");
-        string gender = Console.ReadLine() ?? "<sexo não informado>";
+        string? genderInput = Console.ReadLine();
 
-        Console.WriteLine("Digite seu email: ");
-        string email = Console.ReadLine() ?? "<email não informado>";
+        string gender = string.IsNullOrWhiteSpace(genderInput)
+            ? "<sexo não informado>"
+            : genderInput.Trim();
 
+        Console.Write("Digite seu email: ");
+        string? emailInput = Console.ReadLine();
 
-        Console.WriteLine("--- saida de dados no console ---");
+        string email = string.IsNullOrWhiteSpace(emailInput)
+            ? "<email não informado>"
+            : emailInput.Trim();
 
-        Console.WriteLine("Olá, " + name + "!");
+        Console.WriteLine();
+        Console.WriteLine("--- Saída de dados no console ---");
 
-        Console.WriteLine("Relatorio do cliente cadastrado: " + name + ", " + age + " anos, " + height + "m, " + gender + ", " + email);
+        Console.WriteLine($"Olá, {name}!");
 
+        Console.WriteLine(
+            $"Relatório do cliente cadastrado: " +
+            $"{name}, {age} anos, {height}m, {gender}, {email}"
+        );
     }
 }
